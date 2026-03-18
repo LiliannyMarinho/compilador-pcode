@@ -161,20 +161,22 @@ public class InterpreterTest {
     // TESTES DE ESTRUTURAS CONDICIONAIS
 
     @Test
-    public void testSimpleIf() {
+    public void testSimpleIfElse() {
         String code = """
         var x = 10;
         var y = 15;
         if (x < y) {
             print(x);
+        } else {
+            print(y);
         }
         """;
         assertDoesNotThrow(() -> ParserFacade.parse(code));
-        System.out.println("✅ IF simples OK");
+        System.out.println("✅ IF-ELSE simples OK");
     }
 
     @Test
-    public void testIfWithMultipleStatements() {
+    public void testIfElseWithMultipleStatements() {
         String code = """
         var x = 10;
         var y = 15;
@@ -182,57 +184,68 @@ public class InterpreterTest {
             print(x);
             print("X é menor que Y");
             x = x + 5;
-            print(x);
+        } else {
+            print(y);
+            print("Y é menor ou igual a X");
+            y = y + 5;
         }
         """;
         assertDoesNotThrow(() -> ParserFacade.parse(code));
-        System.out.println("✅ IF com múltiplos comandos OK");
+        System.out.println("✅ IF-ELSE com múltiplos comandos OK");
     }
 
     @Test
-    public void testIfWithComplexCondition() {
+    public void testIfElseWithComplexCondition() {
         String code = """
         var x = 10;
         var y = 20;
         var z = 30;
-        if (x < y and y < z or x == 10) {
-            print("Condição complexa");
+        if (x < y and y < z or x == 5) {
+            print("Verdadeiro");
+        } else {
+            print("Falso");
         }
         """;
         assertDoesNotThrow(() -> ParserFacade.parse(code));
-        System.out.println("✅ IF com condição complexa OK");
+        System.out.println("✅ IF-ELSE com condição complexa OK");
     }
 
     @Test
-    public void testIfWithAllComparisons() {
+    public void testIfElseWithAllComparisons() {
         String code = """
         var x = 10;
-        if (x < 20) { print("menor"); }
-        if (x <= 10) { print("menor ou igual"); }
-        if (x > 5) { print("maior"); }
-        if (x >= 10) { print("maior ou igual"); }
-        if (x == 10) { print("igual"); }
-        if (x != 20) { print("diferente"); }
+        if (x < 20) { print("menor"); } else { print("não menor"); }
+        if (x <= 10) { print("menor ou igual"); } else { print("não <= "); }
+        if (x > 5) { print("maior"); } else { print("não maior"); }
+        if (x >= 10) { print("maior ou igual"); } else { print("não >= "); }
+        if (x == 10) { print("igual"); } else { print("não igual"); }
+        if (x != 20) { print("diferente"); } else { print("igual"); }
         """;
         assertDoesNotThrow(() -> ParserFacade.parse(code));
-        System.out.println("✅ Todos operadores de comparação OK");
+        System.out.println("✅ IF-ELSE com todos operadores OK");
     }
 
     @Test
-    public void testNestedIf() {
+    public void testNestedIfElse() {
         String code = """
         var x = 10;
         var y = 20;
         if (x < y) {
             if (x == 10) {
-                if (y == 20) {
-                    print("IF aninhado");
-                }
+                print("x é 10");
+            } else {
+                print("x não é 10");
+            }
+        } else {
+            if (y == 20) {
+                print("y é 20");
+            } else {
+                print("y não é 20");
             }
         }
         """;
         assertDoesNotThrow(() -> ParserFacade.parse(code));
-        System.out.println("✅ IF aninhado OK");
+        System.out.println("✅ IF-ELSE aninhado OK");
     }
 
     // TESTES DE ESTRUTURAS DE REPETIÇÃO
@@ -294,6 +307,59 @@ public class InterpreterTest {
         """;
         assertDoesNotThrow(() -> ParserFacade.parse(code));
         System.out.println("✅ WHILE aninhado OK");
+    }
+
+    @Test
+    public void testSimpleFor() {
+        String code = """
+        var x = 0;
+        for (x = 0; x < 5; x = x + 1) {
+        }
+        """;
+        assertDoesNotThrow(() -> ParserFacade.parse(code));
+        System.out.println("✅ FOR simples OK");
+    }
+
+    @Test
+    public void testForWithMultipleStatements() {
+        String code = """
+        var i = 0;
+        var soma = 0;
+        for (i = 0; i < 5; i = i + 1) {
+            soma = soma + i;
+            print(soma);
+        }
+        """;
+        assertDoesNotThrow(() -> ParserFacade.parse(code));
+        System.out.println("✅ FOR com múltiplos comandos OK");
+    }
+
+    @Test
+    public void testForWithComplexCondition() {
+        String code = """
+        var i = 0;
+        var j = 10;
+        for (i = 0; i < 5 and j > 5; i = i + 1) {
+            j = j - 1;
+        }
+        """;
+        assertDoesNotThrow(() -> ParserFacade.parse(code));
+        System.out.println("✅ FOR com condição complexa OK");
+    }
+
+    @Test
+    public void testNestedFor() {
+        String code = """
+        var i = 0;
+        var j = 0;
+        for (i = 0; i < 3; i = i + 1) {
+            for (j = 0; j < 3; j = j + 1) {
+                print(i * j);
+            }
+        }
+        """;
+        assertDoesNotThrow(() -> ParserFacade.parse(code));
+        System.out.println("✅ FOR aninhado OK");
     }
 
     // TESTES DE ENTRADA/SAÍDA

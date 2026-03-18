@@ -5,9 +5,10 @@ prog: stat* EOF;
 // STATEMENTS
 stat
     : varDecl
-    | assig
+    | assign
     | ifStat
     | whileStat
+    | forStat
     | printStat
     | inputStat
     ;
@@ -16,25 +17,24 @@ stat
 varDecl: VAR IDENT ('=' expr)? ';' ;
 
 // ATRIBUIÇÃO
-assig: IDENT '=' expr ';' ;
+assign: IDENT '=' expr (';')? ;
 
-// IF
-ifStat: IF '(' cond ')' block ;
+// CONTROLE
+ifStat: IF '(' cond ')' block (ELSE block)? ;
 
-// WHILE
 whileStat: WHILE '(' cond ')' block ;
 
-// PRINT
+forStat: FOR '(' assign ';' cond ';' assign ')' block ;
+
+// IO
 printStat: PRINT '(' (STRING | expr) ')' ';' ;
 
-// INPUT
 inputStat: INPUT '(' IDENT ')' ';' ;
 
 // BLOCO
-block: '{' stat* '}' ;
+block: '{' (stat)* '}' ;
 
-
-// EXPRESSÕES ARITMÉTICAS
+// EXPRESSÕES
 expr
     : <assoc=right> expr '^' expr
     | expr ('*' | '/') expr
@@ -48,8 +48,7 @@ atom
     | '(' expr ')'
     ;
 
-
-// EXPRESSÕES BOOLEANAS
+// BOOLEANOS
 cond: orExpr ;
 
 orExpr: andExpr (OR andExpr)* ;
@@ -66,11 +65,12 @@ notExpr
 
 comparison: expr RELATIONAL expr ;
 
-
 // KEYWORDS
 VAR: 'var';
 IF: 'if';
+ELSE: 'else';
 WHILE: 'while';
+FOR: 'for';
 PRINT: 'print';
 INPUT: 'input';
 AND: 'and';
@@ -84,10 +84,9 @@ RELATIONAL: '<=' | '>=' | '==' | '!=' | '<' | '>' ;
 
 // LITERAIS
 NUMBER: [0-9]+ ('.' [0-9]+)? ;
-
 STRING: '"' ( '\\' . | ~["\\] )* '"' ;
 
-// IDENTIFICADOR
+// IDENT
 IDENT: [a-zA-Z_][a-zA-Z0-9_]* ;
 
 // IGNORAR
