@@ -36,10 +36,10 @@ block: '{' (stat)* '}' ;
 
 // EXPRESSÕES
 expr
-    : <assoc=right> expr '^' expr
-    | expr ('*' | '/') expr
-    | expr ('+' | '-') expr
-    | atom
+    : <assoc=right> expr '^' expr                   #Exp
+    | expr ('*' | '/') expr                         #Mul
+    | expr ('+' | '-') expr                         #Div
+    | atom                                          #Unit
     ;
 
 atom

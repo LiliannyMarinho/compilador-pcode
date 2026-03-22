@@ -1,4 +1,6 @@
 package br.com.infortecnicos.ast.statements;
 
-public class StatementNode {
+import br.com.infortecnicos.ast.ASTNode;
+
+public abstract class StatementNode extends ASTNode {
 }

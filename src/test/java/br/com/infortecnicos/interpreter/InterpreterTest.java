@@ -19,7 +19,6 @@ public class InterpreterTest {
     }
 
     // TESTES DE DECLARAÇÃO
-
     @Test
     public void testVariableDeclaration() {
         String code = "var x = 10;";
@@ -54,7 +53,6 @@ public class InterpreterTest {
     }
 
     // TESTES DE ATRIBUIÇÃO
-
     @Test
     public void testValueAssignment() {
         String code = "var x; x = 10;";
@@ -89,7 +87,6 @@ public class InterpreterTest {
     }
 
     // TESTES DE EXPRESSÕES ARITMÉTICAS
-
     @Test
     public void testArithmeticAssignment() {
         String code = """
@@ -159,7 +156,6 @@ public class InterpreterTest {
     }
 
     // TESTES DE ESTRUTURAS CONDICIONAIS
-
     @Test
     public void testSimpleIfElse() {
         String code = """
@@ -249,7 +245,6 @@ public class InterpreterTest {
     }
 
     // TESTES DE ESTRUTURAS DE REPETIÇÃO
-
     @Test
     public void testSimpleWhile() {
         String code = """
@@ -363,7 +358,6 @@ public class InterpreterTest {
     }
 
     // TESTES DE ENTRADA/SAÍDA
-
     @Test
     public void testPrintString() {
         String code = "print(\"Hello World\");";
@@ -433,7 +427,6 @@ public class InterpreterTest {
     }
 
     // TESTES DE COMBINAÇÕES COMPLEXAS
-
     @Test
     public void testFatorialProgram() {
         String code = """
@@ -582,7 +575,6 @@ public class InterpreterTest {
     }
 
     // TESTES DE CASOS LIMITE
-
     @Test
     public void testEmptyProgram() {
         String code = "";
